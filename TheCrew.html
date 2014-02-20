@@ -1,0 +1,29 @@
+
+<head>
+  <title>TheCrew</title>
+</head>
+
+<body>
+
+<div class="navbar navbar-default" role="navigation">
+  <div class="navbar-header">
+    <a class="navbar-brand" href="#">The Crew</a>
+  </div>
+  <div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Play</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      {{ loginButtons }} <!-- here -->
+
+    </ul>
+  </div>
+</div class="container">
+  {{> hello}}
+</body>
+
+<template name="hello">
+
+  <img src='/airShipGirl.jpg' id="splash">
+  <div id="greeting">  {{{greeting}}} </div>
+</template>
