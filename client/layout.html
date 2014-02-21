@@ -1,0 +1,24 @@
+<template name="layout">
+  <div class="my-fluid-container">
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default" role="navigation">
+      <div class="navbar-header">
+	<a class="navbar-brand" href="#">The Crew</a>
+      </div>
+      <div class="navbar-collapse collapse">
+	<ul class="nav navbar-nav">
+	  <li class="active"><a href="#">Play</a></li>
+	</ul>
+	<ul class="nav navbar-nav navbar-right">
+	  {{ loginButtons }} <!-- here -->
+	</ul>
+      </div>
+    </div>
+
+    {{> errors}}
+    <div id="main" class="row col-md-12">
+      {{ yield }}
+    </div>
+  </div>
+</template>
+
