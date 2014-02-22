@@ -18,3 +18,8 @@
    letter-spacing: -1px;  
    padding: 10px; 
 }
+
+#timer {
+    background-image: url("/clock.png");
+    background-size:250px;
+}

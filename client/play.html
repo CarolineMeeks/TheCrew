@@ -8,10 +8,14 @@
     <div class="col-md-8">{{{image}}}</div>
     <div class="col-md-2"></div>
   </div>
-  <div class="row">
-    <p>
-      <button onclick="document.getElementById('audio').play()">Play the Audio</button>  {{{audio}}}
-    <p>
-      Have a timer {{{timer}}}
+        <div class="col-md-2"></div>
+    <div height="40px" class="col-md-4">
+	<img id="play-btn" src="https://cdn1.iconfinder.com/data/icons/metal/100/right.png" class="paused">
+    </div>
+    <div height="40px" class="col-md-4">
+	{{{timer}}}
+	{{{audio}}}
+	</div>
+    <div class="col-md-2"></div>
   </div>
 </template>
