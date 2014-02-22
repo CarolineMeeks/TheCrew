@@ -1,21 +1,23 @@
 <template name="play">
 
-  <div class="row">
-    This Page will let you play the game.
+  <div class="row text-center">
+    <h2>{{title}}</h2>
   </div>
-  <div class="row">
+  <div class="row text-center">
     <div class="col-md-2"></div>
     <div class="col-md-8">{{{image}}}</div>
     <div class="col-md-2"></div>
   </div>
-        <div class="col-md-2"></div>
-    <div height="40px" class="col-md-4">
-	<img id="play-btn" src="https://cdn1.iconfinder.com/data/icons/metal/100/right.png" class="paused">
+        <div class="col-md-3"></div>
+    <div height="40px" class="col-md-3">
+	<img id="play-btn" src="https://cdn1.iconfinder.com/data/icons/metal/100/right.png">
+	<button id="reset-session" class="btn btn-warning">Restart from Beginning</button>
     </div>
-    <div height="40px" class="col-md-4">
+    <div height="40px" class="col-md-3">
 	{{{timer}}}
 	{{{audio}}}
+
 	</div>
-    <div class="col-md-2"></div>
+    <div class="col-md-3"></div>
   </div>
 </template>
