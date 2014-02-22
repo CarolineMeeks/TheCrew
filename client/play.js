@@ -10,7 +10,7 @@ Template.play.helpers ({
 	return audio
     },
     timer: function() {
-	var time = 30;
+	var time = 10;
 	var timer = '<div id="timer" style="width:250px;float:center" data-timer="' + time + '"></div>'
 	return timer
     }
@@ -42,12 +42,24 @@ Template.play.events({
 	    $('#play-btn').removeClass('paused');
 	    $('#play-btn').addClass('playing');
 	    $('#play-btn').attr('src','https://cdn1.iconfinder.com/data/icons/metal/100/pause.png');
+	    $("#timer").TimeCircles().addListener(function(unit, amount, total){
+		if(total == 0) {
+		    console.log('times up');
+		    pauseAll();
+		}
+	    });
+
 	} else {
-	    $('#timer').TimeCircles().stop();
-	    $('#audio').trigger('pause');
-	    $('#play-btn').addClass('paused');
-	    $('#play-btn').removeClass('playing');
-	    $('#play-btn').attr('src','https://cdn1.iconfinder.com/data/icons/metal/100/right.png');
+	    pauseAll();
 	};
     }
 });
+
+function pauseAll() {
+    $('#timer').TimeCircles().stop();
+    $('#audio').trigger('pause');
+    $('#play-btn').addClass('paused');
+    $('#play-btn').removeClass('playing');
+    $('#play-btn').attr('src','https://cdn1.iconfinder.com/data/icons/metal/100/right.png');
+};
+
