@@ -32,7 +32,7 @@ Template.play.helpers ({
     image:  function () {
 	var step = Session.get('step');
 	var src = workout[step].src;
-	var image = '<img src="' + src + '" id="play-img" style="height:500px;float:center">';
+	var image = '<img src="' + src + '" id="play-img" class="img-responsive">';
 	return image;
     },
     audio: function() {

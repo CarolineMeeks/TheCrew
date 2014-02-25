@@ -12,7 +12,7 @@ Template.splash.helpers ({
 });
 
 Template.splash.events({
-    'click #splashimg' : function (e) {
+    'click, touchstart #splashimg' : function (e) {
 	e.preventDefault();
 	console.log('splash clicked');
 //	if (Meteor.userId()) {
@@ -21,7 +21,7 @@ Template.splash.events({
     },
     'click #greeting' : function (e) {
 	e.preventDefault();
-	console.log('splash clicked');
+	console.log('greeting clicked');
 //	if (Meteor.userId()) {
 	    window.location = "/play";
 //	};

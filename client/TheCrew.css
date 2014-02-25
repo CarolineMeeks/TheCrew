@@ -6,7 +6,14 @@
 
 #splash { 
    position: relative; 
-   height: 100%; /* for IE 6 */
+}
+
+#splashimg {
+    width: 80%;
+}
+
+#play-img {
+    max-height: 400px;
 }
 
 #greeting { 
