@@ -1,0 +1,22 @@
+#splash { 
+background:#00ff00;
+    /* link to other image */
+    background-image: url('/public/antique-kitten.jpg');
+    background-size: 100% 100%;
+    /* hide src */
+    height:0;
+    width:0;
+    
+    /* just show the background */
+    padding:55px 60px;
+}   
+
+#greeting { 
+   position: absolute; 
+   top: 100px; 
+   left: 130px; 
+   color: white;
+   font: bold 24px/45px Helvetica, Sans-Serif; 
+   letter-spacing: -1px;  
+   padding: 10px; 
+}

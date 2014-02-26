@@ -1,7 +1,7 @@
 Template.splash.helpers ({
 	message:  function () {
 	    var message = ""
-	    message = "The Crew <br> Click to Enter"
+	    message = "<i>CATERCIZE</i> <br> Click to Enter"
 	   // if (Meteor.userId()) {
 //		message = "The Crew <br> Click to Enter"
 //	    } else {
