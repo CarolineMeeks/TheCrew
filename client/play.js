@@ -22,28 +22,32 @@ Session.setDefault('step',0);
 Session.setDefault('playing',false);
 
 
+thisStep = Workouts.findOne({step: Session.get('step')});
+Workouts.rewind;
+
+count = Workouts.find().count();
+console.log('above play', count);
+
 Template.play.helpers ({
     title:  function () {
-	var step = Session.get('step');
-	var title = workout[step].title;
+	thisStep = Workouts.findOne({step: Session.get('step')});
+//	console.log(thisStep, Session.get('step'));
+	var title = thisStep.title;
 	console.log(title);
 	return title;
     },
     image:  function () {
-	var step = Session.get('step');
-	var src = workout[step].src;
+	var src = thisStep.src;
 	var image = '<img src="' + src + '" id="play-img" class="img-responsive">';
 	return image;
     },
     audio: function() {
-	var step = Session.get('step');
-	var soundFile = workout[step].soundFile
+	var soundFile = thisStep.soundFile
 	var audio = '<span ><audio id="audio" src="'+ soundFile + '" hidden="true" autostart="true" loop="false" /></span>'
 	return audio
     },
     timer: function() {
-	var step = Session.get('step');
-	var time = workout[step].time;
+	var time = thisStep.time;
 	var timer = '<div id="timer" style="width:250px;float:center" data-timer="' + time + '"></div>'
 	return timer
     }
