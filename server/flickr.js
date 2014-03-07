@@ -1,12 +1,20 @@
+
 var flickrKey = 'c8ab62771a70ea25dd73b1c5bfc062fc';
 var myFlickrId = '82029652@N03';
-var catRestGal = '82006598-72157641782500934';
-var catJumpGal = '82006598-72157641781132923';
-var catReadyGal = '82006598-72157641862219904';
-var catWallGal = '82006598-72157641779189255';
-var catPushupGal = '82006598-72157641779019495';
+restTime = 10
+exerciseTime = 30
+rest = {title: "Rest", galId: '82006598-72157641782500934', time: restTime }
 
-galList = function(apiKey, galId, callback) {
+var steps = {}
+steps[0] = {title: "Click when Ready", galId: '82006598-72157641862219904', time: 5};
+steps[1] = { title: "Jumping Jacks", galId: '82006598-72157641781132923', time: exerciseTime}
+steps[2] = rest
+steps[3] = {title: "Wall Sit", galId: '82006598-72157641779189255', time: exerciseTime};
+steps[4] = rest
+steps[5] = {title: "Pushup", galId: '82006598-72157641779019495', time: exerciseTime};
+steps[6] = rest
+
+galList = function(apiKey, galId, thisStep, callback) {
     requestUrl = "http://api.flickr.com/services/rest/?method=flickr.galleries.getPhotos&api_key="+apiKey+"&gallery_id="+galId+"&extras=tags,url_q,owner_name, licence&format=json&nojsoncallback=1"
     Meteor.http.call("GET", requestUrl, {},function(error, result) {
 	console.log(result.statusCode, requestUrl);
@@ -16,7 +24,7 @@ galList = function(apiKey, galId, callback) {
 	    photos = resultContent.photos.photo;
 	    //console.log(resultContent.photos.photo[1]);
 	    if (callback && typeof(callback) === "function") {  
-		callback();
+		callback(thisStep);
 	    }
 	} else {
 	    console.log('API fail', result.statusCode);
@@ -24,78 +32,38 @@ galList = function(apiKey, galId, callback) {
     });
 };
 
-var restFlickr = ""
-galList(flickrKey, catRestGal,function() {
-    //console.log('photos set to ', photos);
-    restFlickr = photos;
-}); 
+for (var step in steps) {
+    console.log(steps[step].galId)
+    galList(flickrKey, steps[step].galId, step, function(thisStep) {
+	//I am passing through step because otherwise its not syncronous.
+	steps[thisStep].photos = photos;
+	console.log('put in photos for ', steps[thisStep].title);
+    });
+};
 
-var jumpFlickr = ""
-galList(flickrKey, catJumpGal, function() {
-    //console.log('photos set to ', photos);
-    jumpFlickr = photos;
-});
-
-var readyFlickr = ""
-galList(flickrKey, catReadyGal, function() {
-    //console.log('photos set to ', photos);
-    readyFlickr = photos;
-});
-
-var wallFlickr = ""
-galList(flickrKey, catWallGal, function() {
-    //console.log('photos set to ', photos);
-    wallFlickr = photos;
-});
-
-var pushupFlickr = ""
-galList(flickrKey, catPushupGal, function() {
-    //console.log('photos set to ', photos);
-    pushupFlickr = photos;
-});
-
-
-insertRest = function(step) {
-    var rest = {
-	step: step,
-	title:  "Rest",
-	src: restFlickr[Math.floor(Math.random()*restFlickr.length)].url_q,
-	soundFile: "purr-lick.wav",
-	time: 10};
-    Workouts.insert(rest);
-}
 
 createWorkout = function() {
     Meteor.setTimeout(function() {
-	if (restFlickr && jumpFlickr && readyFlickr) {
-	    workout = []
-	    console.log(jumpFlickr[Math.floor(Math.random()*jumpFlickr.length)].url_q);
-	    step0 = {
-		step: 0,
-		title:  "Ready? Click to Start",
-		src: readyFlickr[Math.floor(Math.random()*readyFlickr.length)].url_q,
+	for (step in steps) {
+	    if (steps[step].photos == null) {
+		console.log(steps[step].title,'Not yet on flickr');
+		workout = createWorkout() 
+		return
+	    } else {
+		console.log('found photos '+steps[step].photos.length+steps[step].title);
+	    }
+	}
+	    
+	for (step in steps) {
+	    
+	    stepData = {
+		step: parseInt(step),
+		title:  steps[step].title,
+		src: steps[step].photos[Math.floor(Math.random()*steps[step].photos.length)].url_q,
 		soundFile: "",
-		time: 5};
-	    Workouts.insert(step0);
-	    jumpJack = {
-		step: 1,
-		title:  "Jumping Jacks",
-		src: jumpFlickr[Math.floor(Math.random()*jumpFlickr.length)].url_q,
-		soundFile: "",
-		time: 30}
-	    Workouts.insert(jumpJack);
-	    insertRest(2);
-	    pushup = {
-		step: 3,
-		title:  "Push-Ups",
-		src: pushupFlickr[Math.floor(Math.random()*pushupFlickr.length)].url_q,
-		soundFile: "",
-		time: 30};
-	    insertRest(4);
-	    console.log('workout created')
-	} else {
-	    console.log('Not yet on flickr');
-	    workout = createWorkout() 
+		time: steps[step].time};
+	    Workouts.insert(stepData);
+	    console.log(stepData)
 	};
     }, 1000);
 };

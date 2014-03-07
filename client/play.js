@@ -1,36 +1,19 @@
-var workout = [];
-var step0 = {
-    title:  "Get Ready to Start!",
-    src: 'Gaze.jpg',
-    soundFile: "Davie_Jones.mp3",
-    time: 10};
-workout.push(step0);
-var step1 = {
-    title:  "Jumping Jacks",
-    src: 'Lil_White_Goth.jpg',
-    soundFile: "LakeIsleofInnisfree.mp3",
-    time: 30};
-workout.push(step1);
-var step2 = {
-    title:  "Rest",
-    src: 'Gaze.jpg',
-    soundFile: "Davie_Jones.mp3",
-    time: 30};
-workout.push(step2);
-
 Session.setDefault('step',0);
 Session.setDefault('playing',false);
 
+count = Workouts.find().count();
+
+if (Session.get('step') >= count) {
+    pauseAll();
+    Session.set('step', 0);
+}
 
 thisStep = Workouts.findOne({step: Session.get('step')});
-Workouts.rewind;
-
-count = Workouts.find().count();
-console.log('above play', count);
+    
 
 Template.play.helpers ({
     title:  function () {
-	thisStep = Workouts.findOne({step: Session.get('step')});
+	thisStep = Workouts.findOne({"step": Session.get('step')});
 //	console.log(thisStep, Session.get('step'));
 	var title = thisStep.title;
 	console.log(title);
@@ -50,6 +33,10 @@ Template.play.helpers ({
 	var time = thisStep.time;
 	var timer = '<div id="timer" style="width:250px;float:center" data-timer="' + time + '"></div>'
 	return timer
+    },
+    warnAudio: function() {
+	var warnAudio = '<span><audio id="warnAudio" src="2meow-3sec.wav" hidden="true" autostart="true" loop="false" /></span>'
+	return warnAudio
     }
 });
 
@@ -69,6 +56,18 @@ Template.play.rendered = function() {
 	}
     });
     Meteor.defer(function() {
+	$("#timer").TimeCircles().addListener(function(unit, amount, total){
+	    if (total == 3) {
+		$('#warnAudio').trigger('play');
+	    }
+	    if(total == 0) {
+		console.log('times up');
+		step = Session.get('step') + 1;
+		Session.set('step', step);
+		$('#audio').trigger('stop');
+		$('#warnAudio').trigger('stop');
+	    }
+	});
 	if (Session.get('playing')) {
 	    $('#audio').trigger('play');
 	    $('#timer').TimeCircles().start();
@@ -91,13 +90,6 @@ Template.play.events({
 	    $('#audio').trigger('play');
 	    Session.set('playing',true);
 	    $('#play-btn').attr('src','https://cdn1.iconfinder.com/data/icons/metal/100/pause.png');
-	    $("#timer").TimeCircles().addListener(function(unit, amount, total){
-		if(total == 0) {
-		    console.log('times up');
-		    step = Session.get('step') + 1;
-		    Session.set('step', step);
-		}
-	    });
 	};
     }
 });
