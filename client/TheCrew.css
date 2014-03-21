@@ -9,11 +9,17 @@
 }
 
 #splashimg {
-    width: 80%;
+    width: 100%;
+}
+
+#exerciseImage {
+
+    
 }
 
 #play-img {
-    max-height: 400px;
+    width: 100%;
+    align: center;
 }
 
 #greeting { 
@@ -27,6 +33,14 @@
 }
 
 #timer {
-    background-image: url("/clock.png");
-    background-size:250px;
+    background-image: url("https://cdn4.iconfinder.com/data/icons/sound-and-audio/32/black_4_audio_play-128.png");
+    background-size:128px;
+    background-repeat:no-repeat;
+    background-position:center; 
+}
+
+.container-fluid {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 480px;
 }

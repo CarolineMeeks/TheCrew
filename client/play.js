@@ -31,7 +31,7 @@ Template.play.helpers ({
     },
     timer: function() {
 	var time = thisStep.time;
-	var timer = '<div id="timer" style="width:250px;float:center" data-timer="' + time + '"></div>'
+	var timer = '<div id="timer" style="width:240px;float:center" data-timer="' + time + '"></div>'
 	return timer
     },
     warnAudio: function() {
@@ -72,6 +72,7 @@ Template.play.rendered = function() {
 	    $('#audio').trigger('play');
 	    $('#timer').TimeCircles().start();
 	    $('#play-btn').attr('src','https://cdn1.iconfinder.com/data/icons/metal/100/pause.png');
+	    $('#timer').css('background-image',"url(https://cdn1.iconfinder.com/data/icons/windows-8-metro-style/128/cat.png)");
 	};
     });
     
@@ -90,6 +91,7 @@ Template.play.events({
 	    $('#audio').trigger('play');
 	    Session.set('playing',true);
 	    $('#play-btn').attr('src','https://cdn1.iconfinder.com/data/icons/metal/100/pause.png');
+	    $('#timer').css('background-image',"url(https://cdn1.iconfinder.com/data/icons/windows-8-metro-style/128/cat.png)");
 	};
     }
 });
@@ -99,5 +101,5 @@ function pauseAll() {
     $('#audio').trigger('pause');
     Session.set('playing',false);
     $('#play-btn').attr('src','https://cdn1.iconfinder.com/data/icons/metal/100/right.png');
+    $('#timer').css('background-image', "url(https://cdn4.iconfinder.com/data/icons/sound-and-audio/32/black_4_audio_play-128.png)");
 };
-

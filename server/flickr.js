@@ -15,7 +15,7 @@ steps[5] = {title: "Pushup", galId: '82006598-72157641779019495', time: exercise
 steps[6] = rest
 
 galList = function(apiKey, galId, thisStep, callback) {
-    requestUrl = "http://api.flickr.com/services/rest/?method=flickr.galleries.getPhotos&api_key="+apiKey+"&gallery_id="+galId+"&extras=tags,url_q,owner_name, licence&format=json&nojsoncallback=1"
+    requestUrl = "http://api.flickr.com/services/rest/?method=flickr.galleries.getPhotos&api_key="+apiKey+"&gallery_id="+galId+"&extras=tags,url_q,url_m,url_n,url_z,owner_name, licence&format=json&nojsoncallback=1"
     Meteor.http.call("GET", requestUrl, {},function(error, result) {
 	console.log(result.statusCode, requestUrl);
 	if (result.statusCode == 200) {
@@ -59,7 +59,7 @@ createWorkout = function() {
 	    stepData = {
 		step: parseInt(step),
 		title:  steps[step].title,
-		src: steps[step].photos[Math.floor(Math.random()*steps[step].photos.length)].url_q,
+		src: steps[step].photos[Math.floor(Math.random()*steps[step].photos.length)].url_z,
 		soundFile: "",
 		time: steps[step].time};
 	    Workouts.insert(stepData);
