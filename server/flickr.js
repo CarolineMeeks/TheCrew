@@ -13,6 +13,24 @@ steps[3] = {title: "Wall Sit", galId: '82006598-72157641779189255', time: exerci
 steps[4] = rest
 steps[5] = {title: "Pushup", galId: '82006598-72157641779019495', time: exerciseTime};
 steps[6] = rest
+steps[7] = {title: "Abdominal Crunch", galId: '82006598-72157641779091515', time: exerciseTime};
+steps[8] = rest
+steps[9] = {title: "Step-up onto Chair", galId: '82006598-72157641782387584', time: exerciseTime};
+steps[10] = rest
+steps[11] = {title: "Squat", galId: '82006598-72157641782247104', time: exerciseTime};
+steps[12] = rest
+steps[13] = {title: "Tricepts Dip on Chair",  galId: '82006598-72157641782228094', time: exerciseTime};
+steps[14] = rest
+steps[15] = {title: "Plank",  galId: '82006598-72157641779144905', time: exerciseTime};
+steps[16] = rest
+steps[17] = {title: "High Knees Running in Place", galId: '82006598-72157641778929095', time: exerciseTime};
+steps[18] = rest
+steps[19] = {title: "Lunge", galId: '82006598-72157642814640784', time: exerciseTime};
+steps[20] = rest
+steps[21] = {title: "Push-up and Rotation", galId: '82006598-72157641781061663', time: exerciseTime};
+steps[22] = rest
+steps[23] = {title: "Side Plank", galId: '82006598-72157641782261914', time: exerciseTime};
+
 
 galList = function(apiKey, galId, thisStep, callback) {
     requestUrl = "http://api.flickr.com/services/rest/?method=flickr.galleries.getPhotos&api_key="+apiKey+"&gallery_id="+galId+"&extras=tags,url_q,url_m,url_n,url_z,owner_name, licence&format=json&nojsoncallback=1"

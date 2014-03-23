@@ -18,8 +18,8 @@
 }
 
 #play-img {
-    width: 100%;
-    align: center;
+    max-height: 300px;
+    margin: 0 auto;
 }
 
 #greeting { 
@@ -33,10 +33,11 @@
 }
 
 #timer {
-    background-image: url("https://cdn4.iconfinder.com/data/icons/sound-and-audio/32/black_4_audio_play-128.png");
-    background-size:128px;
+    background-image: url(https://cdn1.iconfinder.com/data/icons/windows-8-metro-style/48/cat.png);
+    background-size:48px;
     background-repeat:no-repeat;
     background-position:center; 
+    color: green;
 }
 
 .container-fluid {

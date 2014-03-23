@@ -31,7 +31,7 @@ Template.play.helpers ({
     },
     timer: function() {
 	var time = thisStep.time;
-	var timer = '<div id="timer" style="width:240px;float:center" data-timer="' + time + '"></div>'
+	var timer = '<div id="timer" class="text-center"  data-timer="' + time + '"></div>'
 	return timer
     },
     warnAudio: function() {
@@ -44,7 +44,7 @@ Template.play.rendered = function() {
     $("#timer").TimeCircles({
 	"start": false,
 	"use_background": false,
-	"fg-width": 1.0,
+	"fg-width": .1,
 	"time": {
 	    "Days": {"show": false},
 	    "Hours":{"show": false},
@@ -57,11 +57,13 @@ Template.play.rendered = function() {
     });
     Meteor.defer(function() {
 	$("#timer").TimeCircles().addListener(function(unit, amount, total){
+	    console.log("added listener", total);
 	    if (total == 3) {
 		$('#warnAudio').trigger('play');
 	    }
 	    if(total == 0) {
 		console.log('times up');
+		$("#timer").TimeCircles().destroy();
 		step = Session.get('step') + 1;
 		Session.set('step', step);
 		$('#audio').trigger('stop');
@@ -83,18 +85,29 @@ Template.play.events({
 	Session.set('step',0);
     },
     'click #play-btn': function(e) {
-	console.log('play button clicked',this);
-	if (Session.get('playing')) {
-	    pauseAll();
-	} else {
-	    $('#timer').TimeCircles().start();
-	    $('#audio').trigger('play');
-	    Session.set('playing',true);
-	    $('#play-btn').attr('src','https://cdn1.iconfinder.com/data/icons/metal/100/pause.png');
-	    $('#timer').css('background-image',"url(https://cdn1.iconfinder.com/data/icons/windows-8-metro-style/128/cat.png)");
-	};
+	startStop(e)
+    },
+    'click #play-img':  function(e) {
+	startStop(e)
+    },
+    'click #timer':  function(e) {
+	startStop(e)
     }
 });
+
+
+function startStop(e) {
+    console.log('play button clicked',this);
+    if (Session.get('playing')) {
+	pauseAll();
+    } else {
+	$('#timer').TimeCircles().start();
+	$('#audio').trigger('play');
+	Session.set('playing',true);
+	$('#play-btn').attr('src','https://cdn1.iconfinder.com/data/icons/metal/100/pause.png');
+	$('#timer').css('background-image',"url(https://cdn1.iconfinder.com/data/icons/windows-8-metro-style/128/cat.png)");
+    };
+}
 
 function pauseAll() {
     $('#timer').TimeCircles().stop();
