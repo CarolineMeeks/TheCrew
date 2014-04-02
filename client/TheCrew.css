@@ -18,7 +18,7 @@
 }
 
 #play-img {
-    max-height: 300px;
+    max-height: 200px;
     margin: 0 auto;
 }
 
@@ -38,6 +38,10 @@
     background-repeat:no-repeat;
     background-position:center; 
     color: green;
+    max-height: 100px;
+    max-width: 100px;
+    margin-left: auto ;
+    margin-right: auto ;
 }
 
 .container-fluid {

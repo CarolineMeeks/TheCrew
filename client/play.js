@@ -33,10 +33,6 @@ Template.play.helpers ({
 	var time = thisStep.time;
 	var timer = '<div id="timer" class="text-center"  data-timer="' + time + '"></div>'
 	return timer
-    },
-    warnAudio: function() {
-	var warnAudio = '<span><audio id="warnAudio" src="2meow-3sec.wav" hidden="true" autostart="true" loop="false" /></span>'
-	return warnAudio
     }
 });
 
@@ -62,12 +58,17 @@ Template.play.rendered = function() {
 		$('#warnAudio').trigger('play');
 	    }
 	    if(total == 0) {
-		console.log('times up');
-		$("#timer").TimeCircles().destroy();
+		//Known issue. Each new step adds a new addListener and I can't figure out how to destroy the old ones, they just keep counting backwards.
+		console.log('times up', this);
+		$('#audio').trigger('pause');
+		$('#warnAudio').trigger('pause');
 		step = Session.get('step') + 1;
 		Session.set('step', step);
-		$('#audio').trigger('stop');
-		$('#warnAudio').trigger('stop');
+	    }
+	    if (total == -1) {
+		//This does not work!
+		this.TimeCircles().stop();
+		console.log('timer at -1');
 	    }
 	});
 	if (Session.get('playing')) {
@@ -81,18 +82,20 @@ Template.play.rendered = function() {
 }; 
 
 Template.play.events({
-    'click #reset-session': function(e) {
+    'tap, click #reset-session': function(e) {
 	Session.set('step',0);
     },
-    'click #play-btn': function(e) {
+    'tap, click #play-btn': function(e) {
 	startStop(e)
     },
-    'click #play-img':  function(e) {
+    'tap, click #play-img':  function(e) {
+	document.getElementById('warnAudio').play();
+	document.getElementById('warnAudio').pause();
 	startStop(e)
     },
-    'click #timer':  function(e) {
+    'tap, click #timer':  function(e) {
 	startStop(e)
-    }
+    },
 });
 
 
@@ -112,7 +115,8 @@ function startStop(e) {
 function pauseAll() {
     $('#timer').TimeCircles().stop();
     $('#audio').trigger('pause');
+    $('#warnAudio').trigger('pause');
+    console.log("paused audio")
     Session.set('playing',false);
-    $('#play-btn').attr('src','https://cdn1.iconfinder.com/data/icons/metal/100/right.png');
     $('#timer').css('background-image', "url(https://cdn4.iconfinder.com/data/icons/sound-and-audio/32/black_4_audio_play-128.png)");
 };

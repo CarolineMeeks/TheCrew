@@ -6,7 +6,7 @@ exerciseTime = 30
 rest = {title: "Rest", galId: '82006598-72157641782500934', time: restTime }
 
 var steps = {}
-steps[0] = {title: "Click when Ready", galId: '82006598-72157641862219904', time: 5};
+steps[0] = {title: "Click when Ready", galId: '82006598-72157641862219904', time: 15};
 steps[1] = { title: "Jumping Jacks", galId: '82006598-72157641781132923', time: exerciseTime}
 steps[2] = rest
 steps[3] = {title: "Wall Sit", galId: '82006598-72157641779189255', time: exerciseTime};

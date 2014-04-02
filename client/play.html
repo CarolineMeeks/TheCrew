@@ -1,21 +1,18 @@
 <template name="play">
 
   <div class="row text-center">
-    <h2>{{title}}</h2>
+    <h4>{{title}}</h4>
   </div>
   <div class="row text-center">
     {{{image}}}
   </div>
-        <div class="col-md-3"></div>
-    <div class=" text-center col-md-6">
-      {{{timer}}}
-      <div style="float:center">
-	<button id="reset-session" class="btn btn-warning">Restart from Beginning</button>
-      </div>
-    </div>
-    <div class="col-md-3">
-	{{{audio}}}
-	{{{warnAudio}}}
-	</div>
+  <div class=" text-center row" height="48px">
+    {{{timer}}}
+    {{{audio}}}
+    <span><audio id="warnAudio" src="2meow-3sec.wav" hidden="true" loop="false"></audio></span>
   </div>
+  <div class=" text-center row">
+    <button id="reset-session" class="btn btn-warning">Restart from Beginning</button>
+  </div>
+
 </template>
